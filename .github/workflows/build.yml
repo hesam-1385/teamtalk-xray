@@ -93,6 +93,8 @@ jobs:
         with:
           name: teamtalk-xray-apk
           path: |
+            tt/Client/TeamTalkAndroid/build/outputs/apk/**/*.apk
             tt/Client/TeamTalkAndroid/app/build/outputs/apk/**/*.apk
             tt/Library/TeamTalkJNI/libs/*.jar
+            tt/Library/TeamTalkJNI/libs/**/*.so
           if-no-files-found: warn
