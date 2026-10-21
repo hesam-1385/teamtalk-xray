@@ -1,0 +1,92 @@
+name: build-teamtalk
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+env:
+  TT_REPO: https://github.com/BearWare/TeamTalk5
+  NDK_VERSION: "27.2.12479018"
+  ANDROID_ABI: arm64-v8a
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout CI repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK
+        run: |
+          sdkmanager --install "ndk;${NDK_VERSION}" "platforms;android-36" "build-tools;35.0.0" > /dev/null
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/${NDK_VERSION}" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK_ROOT=$ANDROID_HOME/ndk/${NDK_VERSION}" >> "$GITHUB_ENV"
+
+      - name: Clone TeamTalk5
+        run: |
+          git clone --depth 1 "${TT_REPO}" tt
+          echo "TeamTalk5 commit: $(git -C tt rev-parse HEAD)"
+
+      - name: Apply Xray overlay
+        continue-on-error: true
+        run: |
+          if [ -d overlay ]; then
+            cp -a overlay/. tt/
+          fi
+
+      - name: Build native libraries (arm64-v8a)
+        run: |
+          cd tt
+          cmake -S . -B build-a64 -G Ninja \
+            -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake" \
+            -DCMAKE_BUILD_TYPE=release \
+            -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+            -DANDROID_ABI=${ANDROID_ABI} \
+            -DANDROID_PLATFORM=android-23 \
+            -DBUILD_TEAMTALK_LIBRARY_LIB=ON \
+            -DBUILD_TEAMTALK_LIBRARY_LIBPRO=ON \
+            -DBUILD_TEAMTALK_CLIENTS=OFF \
+            -DBUILD_TEAMTALK_SERVERS=OFF \
+            -DBUILD_TEAMTALK_DOCUMENTATION=OFF \
+            -DTOOLCHAIN_ZLIB=OFF \
+            -DTOOLCHAIN_LIBVPX=OFF \
+            -DTOOLCHAIN_FFMPEG=OFF \
+            -DTOOLCHAIN_CATCH2=OFF \
+            -DTOOLCHAIN_PORTAUDIO=OFF \
+            -DFEATURE_LIBVPX=OFF \
+            -DFEATURE_FFMPEG=OFF \
+            -DFEATURE_WEBRTC=OFF \
+            -DFEATURE_PORTAUDIO=OFF
+          cmake --build build-a64 -j"$(nproc)" 2>&1 | tail -n 200
+
+      - name: Show produced libs
+        run: |
+          ls -l tt/Library/TeamTalkJNI/libs || true
+          ls -l tt/Library/TeamTalkJNI/libs/${ANDROID_ABI} || true
+          ls -l tt/Library/TeamTalk_DLL/${ANDROID_ABI} || true
+
+      - name: Build APK
+        run: |
+          cd tt/Client/TeamTalkAndroid
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -n 250
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: teamtalk-xray-apk
+          path: |
+            tt/Client/TeamTalkAndroid/app/build/outputs/apk/**/*.apk
+            tt/Library/TeamTalkJNI/libs/*.jar
+          if-no-files-found: warn
