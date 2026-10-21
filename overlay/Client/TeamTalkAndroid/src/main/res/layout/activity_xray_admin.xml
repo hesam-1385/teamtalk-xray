@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_xray_admin_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/xray_admin"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_xray_admin_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/xray_admin_hint"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_xray_user_accounts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/xray_user_accounts"
+            android:minHeight="64dp"
+            android:text="@string/xray_user_accounts"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_xray_server_props"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/xray_server_props"
+            android:minHeight="64dp"
+            android:text="@string/xray_server_props"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_xray_server_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/xray_server_info"
+            android:minHeight="64dp"
+            android:text="@string/xray_server_info"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_xray_move_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/xray_move_users"
+            android:minHeight="64dp"
+            android:text="@string/xray_move_users"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_xray_channel_bans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/xray_channel_bans"
+            android:minHeight="64dp"
+            android:text="@string/xray_channel_bans"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_xray_server_bans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/xray_server_bans"
+            android:minHeight="64dp"
+            android:text="@string/xray_server_bans"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</ScrollView>

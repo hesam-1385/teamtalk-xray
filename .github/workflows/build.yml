@@ -7,6 +7,7 @@ on:
 
 env:
   TT_REPO: https://github.com/BearWare/TeamTalk5
+  TT_COMMIT: c2bed455d8a90412a31c4704db292cd58dc784d2
   NDK_VERSION: "27.2.12479018"
   ANDROID_ABI: arm64-v8a
 
@@ -41,11 +42,14 @@ jobs:
 
       - name: Clone TeamTalk5
         run: |
-          git clone --depth 1 "${TT_REPO}" tt
-          echo "TeamTalk5 commit: $(git -C tt rev-parse HEAD)"
+          git init tt
+          cd tt
+          git remote add origin "${TT_REPO}"
+          git fetch --depth 1 origin "${TT_COMMIT}"
+          git checkout FETCH_HEAD
+          echo "TeamTalk5 commit: $(git rev-parse HEAD)"
 
       - name: Apply Xray overlay
-        continue-on-error: true
         run: |
           if [ -d overlay ]; then
             cp -a overlay/. tt/
@@ -89,6 +93,7 @@ jobs:
 
       - name: Build APK
         run: |
+          set -o pipefail
           cd tt/Client/TeamTalkAndroid
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -n 250

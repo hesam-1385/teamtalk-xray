@@ -69,6 +69,25 @@ public class XrayA11y {
         }
     }
 
+    /** Apply the high contrast theme. Call before super.onCreate(). */
+    public static void applyContrastTheme(android.app.Activity act) {
+        if (flag(act, PREF_CONTRAST, false))
+            act.setTheme(R.style.AppTheme_Xray);
+    }
+
+    /**
+     * Apply the extra font scale. Call in onCreate() before setContentView().
+     */
+    public static void applyFontScale(android.app.Activity act) {
+        float scale = fontScale(act);
+        if (scale > 1.0f) {
+            android.content.res.Configuration override =
+                    new android.content.res.Configuration(act.getResources().getConfiguration());
+            override.fontScale = scale;
+            act.applyOverrideConfiguration(override);
+        }
+    }
+
     public boolean isScreenReaderActive() {
         return screenReader;
     }

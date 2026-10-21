@@ -374,7 +374,9 @@ extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         int itemId = item.getItemId();
-        if (itemId == R.id.action_join) {
+        if (itemId == R.id.action_admin) {
+            startActivity(new Intent(MainActivity.this, XrayAdminActivity.class));
+        } else if (itemId == R.id.action_join) {
             if (curchannel != null)
                 joinChannel(curchannel);
         } else if (itemId == R.id.action_leave) {

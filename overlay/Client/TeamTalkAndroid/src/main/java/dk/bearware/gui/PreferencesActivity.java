@@ -469,6 +469,7 @@ public class PreferencesActivity extends PreferenceActivity implements TeamTalkC
             Preference visual = findPreference(XrayA11y.PREF_FONT_SCALE);
             if (visual != null) {
                 visual.setOnPreferenceChangeListener((preference, value) -> {
+                    sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, value);
                     if (getActivity() != null) {
                         getActivity().getWindow().getDecorView()
                             .post(() -> getActivity().recreate());

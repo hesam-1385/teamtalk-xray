@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<color name="error_red">#FF0000</color>
+<color name="item_background_white">#FFFFFF</color>
+<color name="text_black">#000000</color>
+</resources>
