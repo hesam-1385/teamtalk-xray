@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="xray_admin">ابزار مدیریت سرور</string>
-<string name="xray_admin_hint">مدیریت سرور. برای این ابزارها باید در سرور دسترسی مدیر داشته باشی.</string>
+<string name="xray_admin">قابلیت‌های اضافه</string>
+<string name="xray_admin_hint">حساب کاربری، بن، انتقال کاربر و تنظیمات سرور، مثل تیم‌تاک پلاس. دسترسی مدیر سرور لازمه.</string>
 <string name="xray_channel_bans">کاربران مسدود کانال</string>
 <string name="xray_conn_bytes">بایت ارسالی / دریافتی</string>
 <string name="xray_conn_ping">پینگ (TCP / UDP)</string>
 <string name="xray_conn_stats">آمار اتصال</string>
+<string name="xray_developer">توسعه‌دهنده</string>
+<string name="xray_developer_name">امیر مهدی فرد</string>
 <string name="xray_move_users">انتقال کاربران</string>
 <string name="xray_not_connected">به سرور وصل نیستی</string>
 <string name="xray_server_bans">کاربران مسدود سرور</string>

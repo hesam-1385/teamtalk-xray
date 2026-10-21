@@ -561,9 +561,11 @@ def step_layouts():
 
 # ---------------------------------------------------------------- 5b. our own strings
 OWN_STRINGS = {
-    'xray_admin': ('Admin tools', 'ابزار مدیریت سرور'),
-    'xray_admin_hint': ('Server administration. These tools require admin rights on the server.',
-                         'مدیریت سرور. برای این ابزارها باید در سرور دسترسی مدیر داشته باشی.'),
+    'xray_admin': ('Extra features', 'قابلیت‌های اضافه'),
+    'xray_admin_hint': ('User accounts, bans, moving users and server settings, like TeamTalk Plus. Server admin rights required.',
+                         'حساب کاربری، بن، انتقال کاربر و تنظیمات سرور، مثل تیم‌تاک پلاس. دسترسی مدیر سرور لازمه.'),
+    'xray_developer': ('Developer', 'توسعه‌دهنده'),
+    'xray_developer_name': ('Amir Mahdi Fard', 'امیر مهدی فرد'),
     'xray_user_accounts': ('User accounts', 'حساب‌های کاربری'),
     'xray_server_props': ('Server properties', 'تنظیمات سرور'),
     'xray_server_info': ('Server information', 'اطلاعات سرور'),
@@ -804,6 +806,30 @@ def step_prefs():
         write(p2, t2)
     print('OK prefs shortcut to admin tools')
 
+# ---------------------------------------------------------------- 9c. about screen credits
+def step_about():
+    src = SRC + '/src/main/res/xml/pref_about.xml'
+    must(os.path.exists(src), 'upstream pref_about.xml missing')
+    txt = read(src)
+    if 'xray_developer' not in txt:
+        dup = ('        <EditTextPreference\n'
+               '            android:enabled="false"\n'
+               '            android:singleLine="true"\n'
+               '            android:title="Amir Mahdi Fard" />\n')
+        txt = txt.replace(dup, '')
+        head = '<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >'
+        must(head in txt, 'cannot patch pref_about.xml')
+        block = (head + '\n'
+                 '    <PreferenceCategory android:title="@string/xray_developer">\n'
+                 '        <EditTextPreference\n'
+                 '            android:enabled="false"\n'
+                 '            android:singleLine="true"\n'
+                 '            android:title="@string/xray_developer_name" />\n'
+                 '    </PreferenceCategory>\n')
+        txt = txt.replace(head, block, 1)
+    write(RES + '/xml/pref_about.xml', txt)
+    print('OK about screen developer credit')
+
 # ---------------------------------------------------------------- 10. build.gradle
 def step_gradle():
     p = OV + '/build.gradle'
@@ -834,6 +860,7 @@ def main():
     step_menu()
     step_mainactivity()
     step_prefs()
+    step_about()
     step_gradle()
     print('DONE')
 

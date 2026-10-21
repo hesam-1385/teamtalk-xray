@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="xray_admin">Admin tools</string>
-<string name="xray_admin_hint">Server administration. These tools require admin rights on the server.</string>
+<string name="xray_admin">Extra features</string>
+<string name="xray_admin_hint">User accounts, bans, moving users and server settings, like TeamTalk Plus. Server admin rights required.</string>
 <string name="xray_channel_bans">Banned users in channel</string>
 <string name="xray_conn_bytes">Bytes sent / received</string>
 <string name="xray_conn_ping">Ping (TCP / UDP)</string>
 <string name="xray_conn_stats">Connection statistics</string>
+<string name="xray_developer">Developer</string>
+<string name="xray_developer_name">Amir Mahdi Fard</string>
 <string name="xray_move_users">Move users</string>
 <string name="xray_not_connected">Not connected to a server</string>
 <string name="xray_server_bans">Banned users on server</string>
