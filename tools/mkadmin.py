@@ -565,7 +565,7 @@ OWN_STRINGS = {
     'xray_admin_hint': ('User accounts, bans, moving users and server settings, like TeamTalk Plus. Server admin rights required.',
                          'حساب کاربری، بن، انتقال کاربر و تنظیمات سرور، مثل تیم‌تاک پلاس. دسترسی مدیر سرور لازمه.'),
     'xray_developer': ('Developer', 'توسعه‌دهنده'),
-    'xray_developer_name': ('Amir Mahdi Fard', 'امیر مهدی فرد'),
+    'xray_developer_name': ('Hesam Bahmani', 'حسام بهمنی'),
     'xray_user_accounts': ('User accounts', 'حساب‌های کاربری'),
     'xray_server_props': ('Server properties', 'تنظیمات سرور'),
     'xray_server_info': ('Server information', 'اطلاعات سرور'),

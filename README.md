@@ -36,4 +36,4 @@ keys/                         signing key (xray.p12) used for the debug/release 
 Upstream TeamTalk5 is © BearWare – Danmark. This overlay is an independent
 extension and is not affiliated with BearWare or TeamTalk Plus.
 
-سازنده: امیر مهدی فرد
+سازنده: حسام بهمنی

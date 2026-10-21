@@ -7,7 +7,7 @@
 <string name="xray_conn_ping">Ping (TCP / UDP)</string>
 <string name="xray_conn_stats">Connection statistics</string>
 <string name="xray_developer">Developer</string>
-<string name="xray_developer_name">Amir Mahdi Fard</string>
+<string name="xray_developer_name">Hesam Bahmani</string>
 <string name="xray_move_users">Move users</string>
 <string name="xray_not_connected">Not connected to a server</string>
 <string name="xray_server_bans">Banned users on server</string>
