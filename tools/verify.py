@@ -3,6 +3,7 @@
 # Cannot compile Java on the device (PaX), so this catches aapt2 errors
 # (missing @string/@layout/@id/@color/@dimen/@drawable/@array/@menu) before CI.
 import os, re, sys, collections
+import xml.etree.ElementTree as ET
 
 ROOT = '/root/.buddy/work/teamtalk-xray'
 SRC = ROOT + '/src/Client/TeamTalkAndroid/src/main'
@@ -79,6 +80,11 @@ def main():
                 scan_java(p, res, problems)
             elif f.endswith('.xml'):
                 scan_xml(p, res, problems)
+                # aapt2 rejects malformed xml (bad prolog, literal \n, unbalanced tags)
+                try:
+                    ET.parse(p)
+                except Exception as e:
+                    problems.append(('malformed', p, 'xml', str(e)[:60]))
     # overlay java may also reference upstream-only resources: already merged.
     # extra: check upstream app java references (for patched files) too
     for dirpath, _, files in os.walk(OV + '/java'):

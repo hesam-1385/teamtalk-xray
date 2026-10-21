@@ -1,1 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>\n<resources>\n<string name="xray_admin">ابزار مدیریت سرور</string>\n<string name="xray_admin_hint">مدیریت سرور. برای این ابزارها باید در سرور دسترسی مدیر داشته باشی.</string>\n<string name="xray_channel_bans">کاربران مسدود کانال</string>\n<string name="xray_conn_bytes">بایت ارسالی / دریافتی</string>\n<string name="xray_conn_ping">پینگ (TCP / UDP)</string>\n<string name="xray_conn_stats">آمار اتصال</string>\n<string name="xray_move_users">انتقال کاربران</string>\n<string name="xray_not_connected">به سرور وصل نیستی</string>\n<string name="xray_server_bans">کاربران مسدود سرور</string>\n<string name="xray_server_info">اطلاعات سرور</string>\n<string name="xray_server_info_hint">اطلاعات زنده از سروری که به آن وصلی.</string>\n<string name="xray_server_props">تنظیمات سرور</string>\n<string name="xray_srv_autosave">ذخیره خودکار</string>\n<string name="xray_srv_login_delay">تأخیر ورود (میلی‌ثانیه)</string>\n<string name="xray_srv_max_logins_ip">بیشترین ورود از هر IP</string>\n<string name="xray_srv_max_users">بیشترین تعداد کاربر</string>\n<string name="xray_srv_motd">پیام خوش‌آمدگویی</string>\n<string name="xray_srv_name">نام سرور</string>\n<string name="xray_srv_ports">پورت TCP / UDP</string>\n<string name="xray_srv_user_timeout">زمان بی‌خبری کاربر (ثانیه)</string>\n<string name="xray_srv_version">نسخه سرور</string>\n<string name="xray_user_accounts">حساب‌های کاربری</string>\n</resources>\n
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="xray_admin">ابزار مدیریت سرور</string>
+<string name="xray_admin_hint">مدیریت سرور. برای این ابزارها باید در سرور دسترسی مدیر داشته باشی.</string>
+<string name="xray_channel_bans">کاربران مسدود کانال</string>
+<string name="xray_conn_bytes">بایت ارسالی / دریافتی</string>
+<string name="xray_conn_ping">پینگ (TCP / UDP)</string>
+<string name="xray_conn_stats">آمار اتصال</string>
+<string name="xray_move_users">انتقال کاربران</string>
+<string name="xray_not_connected">به سرور وصل نیستی</string>
+<string name="xray_server_bans">کاربران مسدود سرور</string>
+<string name="xray_server_info">اطلاعات سرور</string>
+<string name="xray_server_info_hint">اطلاعات زنده از سروری که به آن وصلی.</string>
+<string name="xray_server_props">تنظیمات سرور</string>
+<string name="xray_srv_autosave">ذخیره خودکار</string>
+<string name="xray_srv_login_delay">تأخیر ورود (میلی‌ثانیه)</string>
+<string name="xray_srv_max_logins_ip">بیشترین ورود از هر IP</string>
+<string name="xray_srv_max_users">بیشترین تعداد کاربر</string>
+<string name="xray_srv_motd">پیام خوش‌آمدگویی</string>
+<string name="xray_srv_name">نام سرور</string>
+<string name="xray_srv_ports">پورت TCP / UDP</string>
+<string name="xray_srv_user_timeout">زمان بی‌خبری کاربر (ثانیه)</string>
+<string name="xray_srv_version">نسخه سرور</string>
+<string name="xray_user_accounts">حساب‌های کاربری</string>
+</resources>

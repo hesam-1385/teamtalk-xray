@@ -41,4 +41,11 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/xray_admin">
+        <Preference
+            android:key="xray_open_admin"
+            android:title="@string/xray_admin"
+            android:summary="@string/xray_admin_hint" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

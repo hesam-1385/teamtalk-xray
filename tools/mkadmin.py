@@ -590,10 +590,10 @@ OWN_STRINGS = {
 def step_own_strings():
     en = ['<string name=\"%s\">%s</string>' % (k, v[0]) for k, v in sorted(OWN_STRINGS.items())]
     fa = ['<string name=\"%s\">%s</string>' % (k, v[1]) for k, v in sorted(OWN_STRINGS.items())]
-    write(RES + '/values/xray_admin_strings.xml',
-          '<?xml version=\"1.0\" encoding=\"utf-8\"?>\\n<resources>\\n' + '\\n'.join(en) + '\\n</resources>\\n')
-    write(RES + '/values-fa-rIR/xray_admin_strings.xml',
-          '<?xml version=\"1.0\" encoding=\"utf-8\"?>\\n<resources>\\n' + '\\n'.join(fa) + '\\n</resources>\\n')
+    xml_hdr = '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n'
+    xml_ftr = '\n</resources>\n'
+    write(RES + '/values/xray_admin_strings.xml', xml_hdr + '\n'.join(en) + xml_ftr)
+    write(RES + '/values-fa-rIR/xray_admin_strings.xml', xml_hdr + '\n'.join(fa) + xml_ftr)
     print('OK own strings: %d' % len(en))
 
 # ---------------------------------------------------------------- 6. strings
@@ -768,6 +768,42 @@ def step_mainactivity():
     write(p, txt)
     print('OK MainActivity action_admin')
 
+# ---------------------------------------------------------------- 9b. prefs shortcut to admin tools
+def step_prefs():
+    p = RES + '/xml/pref_xray.xml'
+    must(os.path.exists(p), 'overlay pref_xray.xml missing')
+    txt = read(p)
+    if 'xray_open_admin' not in txt:
+        add = ('    <PreferenceCategory android:title="@string/xray_admin">\n'
+               '        <Preference\n'
+               '            android:key="xray_open_admin"\n'
+               '            android:title="@string/xray_admin"\n'
+               '            android:summary="@string/xray_admin_hint" />\n'
+               '    </PreferenceCategory>\n\n')
+        idx = txt.rfind('</PreferenceScreen>')
+        must(idx > 0, 'cannot patch pref_xray.xml')
+        txt = txt[:idx] + add + txt[idx:]
+        write(p, txt)
+
+    p2 = JAV + '/gui/PreferencesActivity.java'
+    must(os.path.exists(p2), 'overlay PreferencesActivity.java missing')
+    t2 = read(p2)
+    if 'xray_open_admin' not in t2:
+        anchor = '            bindPreferenceSummaryToValue(findPreference(XrayA11y.PREF_FONT_SCALE));\n'
+        must(anchor in t2, 'cannot patch XrayPreferenceFragment')
+        add = (anchor +
+               '            Preference adminPref = findPreference("xray_open_admin");\n'
+               '            if (adminPref != null) {\n'
+               '                adminPref.setOnPreferenceClickListener(preference -> {\n'
+               '                    if (getActivity() != null)\n'
+               '                        getActivity().startActivity(new Intent(getActivity(), XrayAdminActivity.class));\n'
+               '                    return true;\n'
+               '                });\n'
+               '            }\n')
+        t2 = t2.replace(anchor, add, 1)
+        write(p2, t2)
+    print('OK prefs shortcut to admin tools')
+
 # ---------------------------------------------------------------- 10. build.gradle
 def step_gradle():
     p = OV + '/build.gradle'
@@ -797,6 +833,7 @@ def main():
     step_res()
     step_menu()
     step_mainactivity()
+    step_prefs()
     step_gradle()
     print('DONE')
 

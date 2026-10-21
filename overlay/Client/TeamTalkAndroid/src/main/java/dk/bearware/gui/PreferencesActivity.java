@@ -464,6 +464,14 @@ public class PreferencesActivity extends PreferenceActivity implements TeamTalkC
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_xray);
             bindPreferenceSummaryToValue(findPreference(XrayA11y.PREF_FONT_SCALE));
+            Preference adminPref = findPreference("xray_open_admin");
+            if (adminPref != null) {
+                adminPref.setOnPreferenceClickListener(preference -> {
+                    if (getActivity() != null)
+                        getActivity().startActivity(new Intent(getActivity(), XrayAdminActivity.class));
+                    return true;
+                });
+            }
 
             // font scale and contrast need a fresh activity to take effect
             Preference visual = findPreference(XrayA11y.PREF_FONT_SCALE);
