@@ -1,0 +1,22 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight" />
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Xray: high contrast theme for blind and low vision users -->
+    <style name="AppTheme.Xray" parent="Theme.AppCompat.DayNight">
+        <item name="android:colorBackground">#FF000000</item>
+        <item name="android:windowBackground">#FF000000</item>
+        <item name="android:textColorPrimary">#FFFFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFEB3B</item>
+        <item name="android:textColorHint">#FFB0BEC5</item>
+        <item name="android:textColorHighlight">#FF00E5FF</item>
+        <item name="colorAccent">#FF00E5FF</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>

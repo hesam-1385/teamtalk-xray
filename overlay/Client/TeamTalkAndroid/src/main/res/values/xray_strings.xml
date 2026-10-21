@@ -1,0 +1,23 @@
+<resources>
+    <string name="pref_header_xray">Accessibility for blind users</string>
+    <string name="pref_cat_xray">Xray feel-the-room layer</string>
+    <string name="pref_xray_announce">Announce events with the screen reader</string>
+    <string name="pref_xray_announce_sum">Joins, leaves, messages and talking are read out loud</string>
+    <string name="pref_xray_tactile">Vibration pattern for every event</string>
+    <string name="pref_xray_tactile_sum">Each event has its own tactile signature</string>
+    <string name="pref_xray_speak">Announce who starts and stops talking</string>
+    <string name="pref_xray_speak_sum">You always know who has the floor</string>
+    <string name="pref_xray_contrast">High contrast theme</string>
+    <string name="pref_xray_contrast_sum">Black background, bright text, strong focus colour</string>
+    <string name="pref_xray_font">Extra large font</string>
+    <string name="pref_xray_font_sum">Scales every text in the app</string>
+    <string name="xray_joined">%1$s joined channel %2$s</string>
+    <string name="xray_left">%1$s left channel %2$s</string>
+    <string name="xray_channel_message">Message from %1$s: %2$s</string>
+    <string name="xray_private_message">Private message from %1$s: %2$s</string>
+    <string name="xray_speaking">%1$s is talking</string>
+    <string name="xray_stopped">%1$s stopped talking</string>
+    <string name="xray_join_channel">Join channel %1$s</string>
+    <string name="xray_message_user">Send a private message to %1$s</string>
+    <string name="xray_channel_desc">%1$s, %2$d people, %3$s</string>
+</resources>

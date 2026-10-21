@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_cat_xray">
+
+        <CheckBoxPreference
+            android:key="xray_announce"
+            android:title="@string/pref_xray_announce"
+            android:summary="@string/pref_xray_announce_sum"
+            android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="xray_tactile"
+            android:title="@string/pref_xray_tactile"
+            android:summary="@string/pref_xray_tactile_sum"
+            android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="xray_speak_events"
+            android:title="@string/pref_xray_speak"
+            android:summary="@string/pref_xray_speak_sum"
+            android:defaultValue="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_header_xray">
+
+        <CheckBoxPreference
+            android:key="xray_high_contrast"
+            android:title="@string/pref_xray_contrast"
+            android:summary="@string/pref_xray_contrast_sum"
+            android:defaultValue="false" />
+
+        <ListPreference
+            android:key="xray_font_scale"
+            android:title="@string/pref_xray_font"
+            android:summary="@string/pref_xray_font_sum"
+            android:defaultValue="1.0"
+            android:entries="@array/xray_font_entries"
+            android:entryValues="@array/xray_font_values" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
