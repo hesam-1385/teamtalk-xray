@@ -73,8 +73,13 @@ jobs:
             -DFEATURE_LIBVPX=OFF \
             -DFEATURE_FFMPEG=OFF \
             -DFEATURE_WEBRTC=OFF \
-            -DFEATURE_PORTAUDIO=OFF
-          cmake --build build-a64 -j"$(nproc)" 2>&1 | tail -n 200
+            -DFEATURE_PORTAUDIO=OFF \
+            -DBUILD_TEAMTALK_LIBRARY_JNI=ON \
+            -DBUILD_TEAMTALK_LIBRARY_JNIPRO=OFF
+          ninja -C build-a64 -t targets all 2>/dev/null | grep -i "jni\|TeamTalk5Lib" | head -20 || true
+          cmake --build build-a64 -j"$(nproc)" > /tmp/native.log 2>&1 || { tail -n 120 /tmp/native.log; exit 1; }
+          grep -i "jni" /tmp/native.log | tail -n 20 || true
+          find . -name "*jni*.so" -o -name "libTeamTalk5*.so" | head
 
       - name: Show produced libs
         run: |
