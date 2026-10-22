@@ -237,10 +237,14 @@ def step_hub():
 
 def step_workflow():
     w = read(WORKFLOW)
+    if 'permissions:' not in w:
+        w = w.replace('name: build-teamtalk\n',
+                      'name: build-teamtalk\n\npermissions:\n  contents: write\n', 1)
     if 'Publish release' not in w:
         add = '''
       - name: Publish release
         if: github.ref == 'refs/heads/main'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -253,7 +257,10 @@ def step_workflow():
             --latest
 '''
         w = w.rstrip('\n') + '\n' + add
-        write(WORKFLOW, w)
+    w = w.replace('      - name: Publish release\n        if: github.ref == \'refs/heads/main\'\n',
+                  '      - name: Publish release\n        if: github.ref == \'refs/heads/main\'\n'
+                  '        continue-on-error: true\n', 1)
+    write(WORKFLOW, w)
     print('OK workflow: releases')
 
 

@@ -1,5 +1,8 @@
 name: build-teamtalk
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   push:
@@ -111,6 +114,7 @@ jobs:
 
       - name: Publish release
         if: github.ref == 'refs/heads/main'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
