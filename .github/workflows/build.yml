@@ -108,3 +108,16 @@ jobs:
             tt/Library/TeamTalkJNI/libs/*.jar
             tt/Library/TeamTalkJNI/libs/**/*.so
           if-no-files-found: warn
+
+      - name: Publish release
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="build-${GITHUB_RUN_NUMBER}"
+          APK=tt/Client/TeamTalkAndroid/build/outputs/apk/debug/TeamTalkAndroid-arm64-v8a-debug.apk
+          [ -f "$APK" ] || APK=tt/Client/TeamTalkAndroid/build/outputs/apk/debug/TeamTalkAndroid-universal-debug.apk
+          gh release create "$TAG" "$APK" \
+            --title "TeamTalk Xray $TAG" \
+            --notes "Automatic build from ${GITHUB_SHA} (run ${GITHUB_RUN_NUMBER})." \
+            --latest

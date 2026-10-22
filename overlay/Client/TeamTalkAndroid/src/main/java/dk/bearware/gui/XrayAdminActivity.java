@@ -61,6 +61,14 @@ public class XrayAdminActivity extends AppCompatActivity {
                 }
             });
         }
+        View upd = findViewById(R.id.btn_xray_update);
+        if (upd != null) {
+            upd.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    XrayUpdater.check(XrayAdminActivity.this);
+                }
+            });
+        }
         View share = findViewById(R.id.btn_xray_share);
         if (share != null) {
             share.setOnClickListener(new View.OnClickListener() {

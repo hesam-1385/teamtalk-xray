@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xray_hub_update">بررسی به‌روزرسانی</string>
+    <string name="xray_update_body">نصب‌شده: %1$s
+آخرین نسخه: %2$s
+
+نسخه‌ی جدید دانلود و نصب شود؟</string>
+    <string name="xray_update_check">بررسی به‌روزرسانی</string>
+    <string name="xray_update_checking">در حال بررسی گیت‌هاب…</string>
+    <string name="xray_update_close">بستن</string>
+    <string name="xray_update_download">دانلود</string>
+    <string name="xray_update_failed">بررسی به‌روزرسانی ناموفق: %1$s</string>
+    <string name="xray_update_none">نسخه‌ی منتشرشده‌ای پیدا نشد</string>
+    <string name="xray_update_title">به‌روزرسانی</string>
+</resources>

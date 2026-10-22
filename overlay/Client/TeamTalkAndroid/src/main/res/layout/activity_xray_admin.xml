@@ -105,5 +105,14 @@
             android:text="@string/xray_hub_share"
             android:textColor="@color/xray_accent"
             android:textSize="17sp" />
+        <Button
+            android:id="@+id/btn_xray_update"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/xray_btn_ghost"
+            android:text="@string/xray_hub_update"
+            android:textColor="@color/xray_accent"
+            android:textSize="17sp" />
 </LinearLayout>
 </ScrollView>

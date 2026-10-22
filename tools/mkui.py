@@ -114,6 +114,11 @@ DRAWABLES = {
     </item>
 </ripple>
 ''',
+    'xray_tx_btn_on.xml': '''<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <gradient android:startColor="#2ECC71" android:endColor="#1B8A4B" android:angle="270" />
+</shape>
+''',
     'xray_ic_record.xml': '''<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp" android:height="24dp"
@@ -140,11 +145,9 @@ def step_drawables():
 
 
 # ----------------------------------------------------------------- 3. styles
-STYLES = '''<resources>
-
-    <!-- Xray: modern, calm dark theme. Deep navy surfaces, teal accent,
-         rounded cards, big touch targets. Stays readable with TalkBack and
-         keeps strong contrast for low vision users. -->
+VISUAL_THEME = '''    <!-- Xray: modern dark look for sighted users. Only colours, action bar,
+         buttons and list styling live here. Contrast mode, font scaling,
+         announcements and vibration are untouched. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/xray_surface</item>
         <item name="colorPrimaryDark">@color/xray_bg</item>
@@ -161,31 +164,20 @@ STYLES = '''<resources>
         <item name="buttonStyle">@style/XrayButton</item>
         <item name="android:listViewStyle">@style/XrayListView</item>
     </style>
+'''
 
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight">
+VISUAL_NOACTION = '''<style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/xray_surface</item>
-        <item name="colorPrimaryDark">@color/xray_bg</item>
         <item name="colorAccent">@color/xray_accent</item>
         <item name="android:windowBackground">@color/xray_bg</item>
+        <item name="android:colorBackground">@color/xray_bg</item>
         <item name="android:textColorPrimary">@color/xray_text</item>
         <item name="android:textColorSecondary">@color/xray_text_dim</item>
-    </style>
+    </style>'''
 
-    <!-- Blind / low vision mode: pure black, huge contrast, yellow accents -->
-    <style name="AppTheme.Xray" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/xray_surface</item>
-        <item name="android:colorBackground">#FF000000</item>
-        <item name="android:windowBackground">#FF000000</item>
-        <item name="android:textColorPrimary">#FFFFFFFF</item>
-        <item name="android:textColorSecondary">#FFFFEB3B</item>
-        <item name="android:textColorHint">#FFB0BEC5</item>
-        <item name="android:textColorHighlight">#FF00E5FF</item>
-        <item name="colorAccent">#FF00E5FF</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
+VISUAL_EXTRA = '''
     <style name="XrayActionBar" parent="Widget.AppCompat.ActionBar.Solid">
         <item name="background">@color/xray_surface</item>
         <item name="elevation">6dp</item>
@@ -224,7 +216,6 @@ STYLES = '''<resources>
         <item name="android:clipToPadding">false</item>
     </style>
 
-    <!-- Text styles used by the redesigned layouts -->
     <style name="XrayChatName">
         <item name="android:textColor">@color/xray_text</item>
         <item name="android:textSize">17sp</item>
@@ -244,14 +235,24 @@ STYLES = '''<resources>
         <item name="android:singleLine">true</item>
         <item name="android:paddingEnd">8dp</item>
     </style>
-
-</resources>
 '''
 
 
 def step_styles():
-    write(RES + '/values/styles.xml', STYLES)
-    print('OK styles')
+    """Patch the generated styles.xml - never replace the accessibility theme."""
+    p = RES + '/values/styles.xml'
+    must(os.path.exists(p), 'styles.xml missing (run mkoverlay.py first)')
+    s = read(p)
+    s = re.sub(r'<style name="AppTheme" parent="Theme\.AppCompat\.DayNight" />',
+               VISUAL_THEME.strip(), s)
+    s = re.sub(r'<style name="AppTheme\.NoActionBar".*?</style>',
+               VISUAL_NOACTION.strip(), s, flags=re.S)
+    if 'XrayChatName' not in s:
+        s = s.replace('</resources>', VISUAL_EXTRA + '\n</resources>')
+    must('<style name="AppTheme.Xray"' in s, 'accessibility theme removed')
+    must('#FFFFEB3B' in s, 'accessibility colours changed')
+    write(p, s)
+    print('OK styles (visual only, accessibility theme untouched)')
 
 
 # ----------------------------------------------------------------- 4. layouts
@@ -1058,6 +1059,12 @@ def step_mainactivity():
         anchor = '    public final int REQUEST_EDITCHANNEL = 1,'
         must(anchor in t, 'cannot find request code block start')
         t = t.replace(anchor, '    private boolean xrayShareMode = false;\n\n' + anchor, 1)
+
+    flat = '        findViewById(R.id.transmit_voice).setBackgroundColor(txEnabled ? Color.GREEN : Color.RED);'
+    if flat in t:
+        t = t.replace(flat,
+                      '        findViewById(R.id.transmit_voice).setBackgroundResource(txEnabled'
+                      ' ? R.drawable.xray_tx_btn_on : R.drawable.xray_tx_btn);', 1)
 
     if 'private void toggleXrayRecording()' not in t:
         idx = t.rfind('}')

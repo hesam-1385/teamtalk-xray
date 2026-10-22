@@ -1,8 +1,8 @@
 <resources>
 
-    <!-- Xray: modern, calm dark theme. Deep navy surfaces, teal accent,
-         rounded cards, big touch targets. Stays readable with TalkBack and
-         keeps strong contrast for low vision users. -->
+    <!-- Xray: modern dark look for sighted users. Only colours, action bar,
+         buttons and list styling live here. Contrast mode, font scaling,
+         announcements and vibration are untouched. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/xray_surface</item>
         <item name="colorPrimaryDark">@color/xray_bg</item>
@@ -24,16 +24,15 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/xray_surface</item>
-        <item name="colorPrimaryDark">@color/xray_bg</item>
         <item name="colorAccent">@color/xray_accent</item>
         <item name="android:windowBackground">@color/xray_bg</item>
+        <item name="android:colorBackground">@color/xray_bg</item>
         <item name="android:textColorPrimary">@color/xray_text</item>
         <item name="android:textColorSecondary">@color/xray_text_dim</item>
     </style>
 
-    <!-- Blind / low vision mode: pure black, huge contrast, yellow accents -->
+    <!-- Xray: high contrast theme for blind and low vision users -->
     <style name="AppTheme.Xray" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/xray_surface</item>
         <item name="android:colorBackground">#FF000000</item>
         <item name="android:windowBackground">#FF000000</item>
         <item name="android:textColorPrimary">#FFFFFFFF</item>
@@ -43,6 +42,7 @@
         <item name="colorAccent">#FF00E5FF</item>
         <item name="android:textSize">18sp</item>
     </style>
+
 
     <style name="XrayActionBar" parent="Widget.AppCompat.ActionBar.Solid">
         <item name="background">@color/xray_surface</item>
@@ -82,7 +82,6 @@
         <item name="android:clipToPadding">false</item>
     </style>
 
-    <!-- Text styles used by the redesigned layouts -->
     <style name="XrayChatName">
         <item name="android:textColor">@color/xray_text</item>
         <item name="android:textSize">17sp</item>

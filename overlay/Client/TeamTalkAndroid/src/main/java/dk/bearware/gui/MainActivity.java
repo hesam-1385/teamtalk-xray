@@ -1835,7 +1835,7 @@ private EditText newmsg;
     private void adjustTxState(boolean txEnabled) {
         accessibilityAssistant.lockEvents();
 
-        findViewById(R.id.transmit_voice).setBackgroundColor(txEnabled ? Color.GREEN : Color.RED);
+        findViewById(R.id.transmit_voice).setBackgroundResource(txEnabled ? R.drawable.xray_tx_btn_on : R.drawable.xray_tx_btn);
         findViewById(R.id.transmit_voice).setContentDescription(txEnabled ? getString(R.string.tx_on) : getString(R.string.tx_off));
 
         if ((curchannel != null) && (getClient().getMyChannelID() == curchannel.nChannelID))

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xray_hub_update">Check for updates</string>
+    <string name="xray_update_body">Installed: %1$s
+Latest build: %2$s
+
+Download and install the new build?</string>
+    <string name="xray_update_check">Check for updates</string>
+    <string name="xray_update_checking">Checking GitHub…</string>
+    <string name="xray_update_close">Close</string>
+    <string name="xray_update_download">Download</string>
+    <string name="xray_update_failed">Update check failed: %1$s</string>
+    <string name="xray_update_none">No published build found</string>
+    <string name="xray_update_title">Update</string>
+</resources>
