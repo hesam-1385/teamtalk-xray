@@ -115,6 +115,7 @@ jobs:
       - name: Publish release
         if: github.ref == 'refs/heads/main'
         continue-on-error: true
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

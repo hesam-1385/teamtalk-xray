@@ -47,20 +47,6 @@ public class XrayAdminActivity extends AppCompatActivity {
             }
         }, 400);
 
-        View rec = findViewById(R.id.btn_xray_record);
-        if (rec != null) {
-            rec.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    if (XrayRecorderService.isRunning()) {
-                        XrayScreenCapture.stop(XrayAdminActivity.this);
-                    }
-                    else {
-                        xrayShare = false;
-                        XrayScreenCapture.request(XrayAdminActivity.this);
-                    }
-                }
-            });
-        }
         View upd = findViewById(R.id.btn_xray_update);
         if (upd != null) {
             upd.setOnClickListener(new View.OnClickListener() {
@@ -73,12 +59,12 @@ public class XrayAdminActivity extends AppCompatActivity {
         if (share != null) {
             share.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    if (XrayRecorderService.isRunning()) {
-                        XrayScreenCapture.stop(XrayAdminActivity.this);
+                    if (XrayDesktopShare.isSharing()) {
+                        XrayDesktopShare.ShareService.requestStop(XrayAdminActivity.this);
                     }
                     else {
-                        xrayShare = true;
-                        XrayScreenCapture.request(XrayAdminActivity.this);
+                        XrayDesktopShare.request(XrayAdminActivity.this,
+                                MainActivity.activeClient());
                     }
                 }
             });
@@ -99,12 +85,17 @@ public class XrayAdminActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    private boolean xrayShare = false;
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
-        if (requestCode == XrayScreenCapture.REQUEST_CODE) {
-            XrayScreenCapture.handleResult(this, resultCode, data, xrayShare);
+        if (requestCode == XrayDesktopShare.REQUEST_CODE) {
+            if (resultCode == RESULT_OK && data != null) {
+                XrayDesktopShare.ShareService.startWithResult(this,
+                        MainActivity.activeClient(), resultCode, data);
+            }
+            else {
+                android.widget.Toast.makeText(this, R.string.xray_share_denied,
+                        android.widget.Toast.LENGTH_LONG).show();
+            }
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);

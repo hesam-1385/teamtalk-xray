@@ -57,13 +57,9 @@
             android:title="@string/xray_admin"
             app:showAsAction="never" />
     <item
-        android:id="@+id/action_record"
-        android:orderInCategory="98"
-        android:title="@string/xray_record"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_share_screen"
-        android:orderInCategory="99"
+        android:orderInCategory="98"
+        android:icon="@drawable/xray_ic_share"
         android:title="@string/xray_share_screen"
         app:showAsAction="never" />
 </menu>

@@ -6,20 +6,27 @@
     android:layout_height="match_parent"
     android:background="@color/xray_bg"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/xray_surface"
-        android:elevation="4dp"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp"
+        android:background="@color/xray_bg"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp"
+        app:tabGravity="fill"
         app:tabIndicatorColor="@color/xray_accent"
         app:tabIndicatorHeight="3dp"
+        app:tabIndicatorFullWidth="false"
+        app:tabRippleColor="@color/xray_accent_soft"
         app:tabSelectedTextColor="@color/xray_accent"
         app:tabTextColor="@color/xray_text_dim" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/xray_stroke" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
@@ -31,132 +38,144 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/xray_card"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="12dp" >
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:padding="14dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:background="@drawable/xray_hero"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/connectionstat_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/xray_accent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pingstat_textview"
+                style="@style/XrayStat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/totalstat_textview"
+                style="@style/XrayStat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <ImageButton
+                android:id="@+id/speakerBtn"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/speaker_mute"
+                android:src="@drawable/speaker_blue" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/connectionstat_textview"
+                    android:id="@+id/vollevel_text"
                     style="@style/XrayStat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=""
-                    android:textColor="@color/xray_accent"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/pingstat_textview"
-                    style="@style/XrayStat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="" />
 
-                <TextView
-                    android:id="@+id/totalstat_textview"
-                    style="@style/XrayStat"
-                    android:layout_width="wrap_content"
+                <SeekBar
+                    android:id="@+id/master_volSeekBar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <ImageButton
-                    android:id="@+id/speakerBtn"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/speaker_mute"
-                    android:src="@drawable/speaker_blue" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/vollevel_text"
-                        style="@style/XrayStat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-
-                    <SeekBar
-                        android:id="@+id/master_volSeekBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/mastervolume" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <ImageButton
-                    android:id="@+id/voxSwitch"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/voice_activation_on"
-                    android:src="@drawable/mic_green" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/miclevel_text"
-                        style="@style/XrayStat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-
-                    <SeekBar
-                        android:id="@+id/mic_gainSeekBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/micgain" />
-                </LinearLayout>
+                    android:contentDescription="@string/mastervolume"
+                    android:maxHeight="4dp"
+                    android:minHeight="4dp"
+                    android:progressTint="@color/xray_accent"
+                    android:thumbTint="@color/xray_accent"
+                    android:progressBackgroundTint="@color/xray_stroke" />
             </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/transmit_voice"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/xray_tx_btn"
-            android:elevation="8dp"
-            android:text="@string/button_tx"
-            android:textColor="#FFFFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/voxSwitch"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/voice_activation_on"
+                android:src="@drawable/mic_green" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/miclevel_text"
+                    style="@style/XrayStat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+                <SeekBar
+                    android:id="@+id/mic_gainSeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/micgain"
+                    android:maxHeight="4dp"
+                    android:minHeight="4dp"
+                    android:progressTint="@color/xray_violet"
+                    android:thumbTint="@color/xray_violet"
+                    android:progressBackgroundTint="@color/xray_stroke" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/transmit_voice"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/xray_tx_btn"
+                android:elevation="12dp"
+                android:text="@string/button_tx"
+                android:textColor="#FFFFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

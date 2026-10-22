@@ -184,13 +184,11 @@ extends AppCompatActivity
     public static final String TAG = "bearware";
     private static final String MSG_NOTIFICATION_CHANNEL_ID = "TT_PM";
 
-    private boolean xrayShareMode = false;
-
     public final int REQUEST_EDITCHANNEL = 1,
                      REQUEST_NEWCHANNEL = 2,
                      REQUEST_EDITUSER = 3,
                      REQUEST_SELECT_FILE = 4,
-                     REQUEST_SCREENCAST = XrayScreenCapture.REQUEST_CODE;
+                     REQUEST_SCREENCAST = XrayDesktopShare.REQUEST_CODE;
 
     CountDownTimer stats_timer = null;
     TeamTalkConnection mConnection;
@@ -282,6 +280,7 @@ extends AppCompatActivity
         if (XrayA11y.flag(this, XrayA11y.PREF_CONTRAST, false))
             setTheme(R.style.AppTheme_Xray);
         super.onCreate(savedInstanceState);
+        xrayCurrent = this;
         ctx = getApplicationContext();
         prefs = new PrefsHelper(ctx);
         xray = new XrayA11y(this);
@@ -377,12 +376,10 @@ extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         int itemId = item.getItemId();
-        if (itemId == R.id.action_record) {
-            toggleXrayRecording();
-        } else if (itemId == R.id.action_share_screen) {
+        if (itemId == R.id.action_share_screen) {
             toggleXrayShare();
-        } else if (itemId == R.id.action_admin) {
-
+        }
+        if (itemId == R.id.action_admin) {
             startActivity(new Intent(MainActivity.this, XrayAdminActivity.class));
         } else if (itemId == R.id.action_join) {
             if (curchannel != null)
@@ -756,7 +753,13 @@ extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCREENCAST) {
-            XrayScreenCapture.handleResult(this, resultCode, data, xrayShareMode);
+            if (resultCode == RESULT_OK && data != null) {
+                XrayDesktopShare.ShareService.startWithResult(this, getClient(),
+                        resultCode, data);
+            }
+            else {
+                Toast.makeText(this, R.string.xray_share_denied, Toast.LENGTH_LONG).show();
+            }
             return;
         }
         if ((requestCode == REQUEST_SELECT_FILE) && (resultCode == RESULT_OK)) {
@@ -1835,7 +1838,7 @@ private EditText newmsg;
     private void adjustTxState(boolean txEnabled) {
         accessibilityAssistant.lockEvents();
 
-        findViewById(R.id.transmit_voice).setBackgroundResource(txEnabled ? R.drawable.xray_tx_btn_on : R.drawable.xray_tx_btn);
+        findViewById(R.id.transmit_voice).setBackgroundColor(txEnabled ? Color.GREEN : Color.RED);
         findViewById(R.id.transmit_voice).setContentDescription(txEnabled ? getString(R.string.tx_on) : getString(R.string.tx_off));
 
         if ((curchannel != null) && (getClient().getMyChannelID() == curchannel.nChannelID))
@@ -2623,26 +2626,22 @@ if (curchannel != null && user.nChannelID == curchannel.nChannelID) {
             audioIcons.play(sound, 1.0f, 1.0f, 0, 0, 1.0f);
     }
 
-    /** Xray: start / stop a screen recording with microphone audio. */
-    private void toggleXrayRecording() {
-        if (XrayRecorderService.isRunning()) {
-            XrayScreenCapture.stop(this);
-            Toast.makeText(this, R.string.xray_record_stop, Toast.LENGTH_SHORT).show();
+    /** Xray: one toggle for live screen / desktop sharing into the current channel. */
+    private void toggleXrayShare() {
+        if (XrayDesktopShare.isSharing()) {
+            XrayDesktopShare.ShareService.requestStop(this);
+            Toast.makeText(this, R.string.xray_share_off, Toast.LENGTH_SHORT).show();
         }
         else {
-            xrayShareMode = false;
-            XrayScreenCapture.request(this);
+            XrayDesktopShare.request(this, getClient());
         }
     }
 
-    /** Xray: record the screen with sound, then offer to send it. */
-    private void toggleXrayShare() {
-        if (XrayRecorderService.isRunning()) {
-            XrayScreenCapture.stop(this);
-        }
-        else {
-            xrayShareMode = true;
-            XrayScreenCapture.request(this);
-        }
+    private static MainActivity xrayCurrent;
+
+    /** The live client of the visible TeamTalk activity (used by the share service). */
+    public static dk.bearware.TeamTalkBase activeClient() {
+        MainActivity a = xrayCurrent;
+        return a != null ? a.getClient() : null;
     }
 }

@@ -4,38 +4,49 @@
     android:layout_height="wrap_content"
     android:background="@drawable/xray_row"
     android:gravity="center_vertical"
-    android:minHeight="62dp"
+    android:minHeight="66dp"
     android:orientation="horizontal"
     android:paddingStart="12dp"
     android:paddingTop="10dp"
     android:paddingEnd="10dp"
-    android:paddingBottom="10dp" >
+    android:paddingBottom="10dp">
 
-    <ImageView
-        android:id="@+id/usericon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:importantForAccessibility="no"
-        android:src="@drawable/man_blue" />
+    <FrameLayout
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/xray_avatar">
+
+        <ImageView
+            android:id="@+id/usericon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:src="@drawable/man_blue" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="12dp"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/nickname"
             style="@style/XrayChatName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/status"
             style="@style/XrayChatSub"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1" />
     </LinearLayout>
 
     <Button
@@ -46,10 +57,11 @@
         android:clickable="true"
         android:focusable="false"
         android:minWidth="0dp"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:stateListAnimator="@null"
         android:text="@string/button_msg"
         android:textColor="@color/xray_accent"
-        android:textSize="13sp" />
-
+        android:textSize="13sp"
+        android:textStyle="bold" />
 </LinearLayout>

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="xray_bg">#0B0F14</color>
-    <color name="xray_surface">#141B23</color>
-    <color name="xray_surface2">#1B2530</color>
-    <color name="xray_stroke">#24313D</color>
-    <color name="xray_accent">#00E5FF</color>
-    <color name="xray_accent_dim">#00A6BD</color>
-    <color name="xray_text">#ECEFF1</color>
-    <color name="xray_text_dim">#93A3B1</color>
-    <color name="xray_ok">#2ECC71</color>
-    <color name="xray_warn">#FFC94A</color>
-    <color name="xray_danger">#FF5C6C</color>
-    <color name="xray_tx">#E53935</color>
-    <color name="xray_tx_dim">#B71C1C</color>
+    <color name="xray_bg">#070A10</color>
+    <color name="xray_bg2">#0C1119</color>
+    <color name="xray_surface">#111925</color>
+    <color name="xray_surface2">#18222F</color>
+    <color name="xray_stroke">#23303F</color>
+    <color name="xray_accent">#22D3EE</color>
+    <color name="xray_accent_dim">#0E7490</color>
+    <color name="xray_accent_soft">#3322D3EE</color>
+    <color name="xray_violet">#8B5CF6</color>
+    <color name="xray_text">#F1F5F9</color>
+    <color name="xray_text_dim">#94A3B8</color>
+    <color name="xray_ok">#34D399</color>
+    <color name="xray_warn">#FBBF24</color>
+    <color name="xray_danger">#F87171</color>
+    <color name="xray_tx">#EF4444</color>
+    <color name="xray_tx_dim">#991B1B</color>
+    <color name="xray_tx_on">#10B981</color>
+    <color name="xray_tx_on_dim">#047857</color>
 </resources>

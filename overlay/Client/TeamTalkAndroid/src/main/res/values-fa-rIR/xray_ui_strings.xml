@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="xray_hub_record">ضبط صفحه (با صدا)</string>
-    <string name="xray_hub_share">اشتراک صفحه (ضبط و ارسال)</string>
-    <string name="xray_hub_title">قابلیت‌های اضافه</string>
-    <string name="xray_rec_channel">ضبط صفحه</string>
-    <string name="xray_rec_denied">اجازه‌ی ضبط صفحه داده نشد</string>
-    <string name="xray_rec_failed">ضبط صفحه ناموفق بود</string>
-    <string name="xray_rec_on">در حال ضبط صفحه…</string>
-    <string name="xray_rec_saved">ذخیره شد: %1$s</string>
-    <string name="xray_rec_share">در حال ضبط صفحه برای اشتراک…</string>
-    <string name="xray_rec_share_chooser">ارسال ضبط صفحه</string>
-    <string name="xray_rec_stop_action">توقف</string>
-    <string name="xray_record">ضبط صفحه</string>
-    <string name="xray_record_stop">توقف ضبط</string>
-    <string name="xray_share_screen">اشتراک صفحه (با صدا)</string>
+    <string name="xray_admin_subtitle">قابلیت‌های Xray: اشتراک زنده‌ی صفحه، ابزارهای سرور، به‌روزرسانی</string>
+    <string name="xray_hub_share">اشتراک صفحه (زنده، با صدا)</string>
+    <string name="xray_share_alive">صفحه‌ات دارد در کانال به اشتراک گذاشته می‌شود</string>
+    <string name="xray_share_channel">اشتراک صفحه</string>
+    <string name="xray_share_denied">اجازه‌ی ضبط صفحه داده نشد</string>
+    <string name="xray_share_failed">اشتراک صفحه انجام نشد</string>
+    <string name="xray_share_need_channel">اول وارد یک کانال شو</string>
+    <string name="xray_share_off">اشتراک صفحه قطع شد</string>
+    <string name="xray_share_on">اشتراک صفحه شروع شد</string>
+    <string name="xray_share_screen">اشتراک صفحه</string>
+    <string name="xray_share_stop_action">توقف</string>
 </resources>

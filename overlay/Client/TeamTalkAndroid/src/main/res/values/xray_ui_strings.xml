@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="xray_hub_record">Record screen (with sound)</string>
-    <string name="xray_hub_share">Share screen (record + send)</string>
-    <string name="xray_hub_title">Extra features</string>
-    <string name="xray_rec_channel">Screen recording</string>
-    <string name="xray_rec_denied">Screen capture permission was not granted</string>
-    <string name="xray_rec_failed">Screen recording failed</string>
-    <string name="xray_rec_on">Recording the screen…</string>
-    <string name="xray_rec_saved">Saved: %1$s</string>
-    <string name="xray_rec_share">Recording the screen to share…</string>
-    <string name="xray_rec_share_chooser">Send the screen recording</string>
-    <string name="xray_rec_stop_action">Stop</string>
-    <string name="xray_record">Screen recording</string>
-    <string name="xray_record_stop">Stop recording</string>
-    <string name="xray_share_screen">Share screen (with sound)</string>
+    <string name="xray_admin_subtitle">Xray extras: live screen sharing, server tools, updates</string>
+    <string name="xray_hub_share">Share screen (live, with sound)</string>
+    <string name="xray_share_alive">Your screen is being shared in the channel</string>
+    <string name="xray_share_channel">Screen sharing</string>
+    <string name="xray_share_denied">Screen capture permission was not granted</string>
+    <string name="xray_share_failed">Screen sharing failed</string>
+    <string name="xray_share_need_channel">Join a channel first</string>
+    <string name="xray_share_off">Screen sharing stopped</string>
+    <string name="xray_share_on">Screen sharing started</string>
+    <string name="xray_share_screen">Share screen</string>
+    <string name="xray_share_stop_action">Stop</string>
 </resources>
