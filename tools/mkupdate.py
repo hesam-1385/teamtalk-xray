@@ -240,8 +240,13 @@ def step_workflow():
     if 'permissions:' not in w:
         w = w.replace('name: build-teamtalk\n',
                       'name: build-teamtalk\n\npermissions:\n  contents: write\n', 1)
-    if 'Publish release' not in w:
-        add = '''
+    # Always drop a previous release block first, so the file can never end up
+    # with duplicate 'Publish release' steps (duplicate steps are legal, but a
+    # duplicated mapping key inside one step makes GitHub reject the workflow).
+    idx = w.find('      - name: Publish release')
+    if idx > 0:
+        w = w[:idx].rstrip('\n') + '\n'
+    add = '''
       - name: Publish release
         if: github.ref == 'refs/heads/main'
         continue-on-error: true
@@ -256,10 +261,11 @@ def step_workflow():
             --notes "Automatic build from ${GITHUB_SHA} (run ${GITHUB_RUN_NUMBER})." \\
             --latest
 '''
-        w = w.rstrip('\n') + '\n' + add
-    w = w.replace('      - name: Publish release\n        if: github.ref == \'refs/heads/main\'\n',
-                  '      - name: Publish release\n        if: github.ref == \'refs/heads/main\'\n'
-                  '        continue-on-error: true\n', 1)
+    w = w.rstrip('\n') + '\n' + add
+    # Last line of defence: never emit the same mapping key twice in a step.
+    while 'continue-on-error: true\n        continue-on-error: true' in w:
+        w = w.replace('continue-on-error: true\n        continue-on-error: true',
+                      'continue-on-error: true')
     write(WORKFLOW, w)
     print('OK workflow: releases')
 
