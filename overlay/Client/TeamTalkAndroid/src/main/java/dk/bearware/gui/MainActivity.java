@@ -184,10 +184,13 @@ extends AppCompatActivity
     public static final String TAG = "bearware";
     private static final String MSG_NOTIFICATION_CHANNEL_ID = "TT_PM";
 
+    private boolean xrayShareMode = false;
+
     public final int REQUEST_EDITCHANNEL = 1,
                      REQUEST_NEWCHANNEL = 2,
                      REQUEST_EDITUSER = 3,
-                     REQUEST_SELECT_FILE = 4;
+                     REQUEST_SELECT_FILE = 4,
+                     REQUEST_SCREENCAST = XrayScreenCapture.REQUEST_CODE;
 
     CountDownTimer stats_timer = null;
     TeamTalkConnection mConnection;
@@ -374,7 +377,12 @@ extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         int itemId = item.getItemId();
-        if (itemId == R.id.action_admin) {
+        if (itemId == R.id.action_record) {
+            toggleXrayRecording();
+        } else if (itemId == R.id.action_share_screen) {
+            toggleXrayShare();
+        } else if (itemId == R.id.action_admin) {
+
             startActivity(new Intent(MainActivity.this, XrayAdminActivity.class));
         } else if (itemId == R.id.action_join) {
             if (curchannel != null)
@@ -747,6 +755,10 @@ extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SCREENCAST) {
+            XrayScreenCapture.handleResult(this, resultCode, data, xrayShareMode);
+            return;
+        }
         if ((requestCode == REQUEST_SELECT_FILE) && (resultCode == RESULT_OK)) {
             Uri uri = data.getData();
             String path = AbsolutePathHelper.getRealPath(this.getBaseContext(), uri);
@@ -2609,5 +2621,28 @@ if (curchannel != null && user.nChannelID == curchannel.nChannelID) {
         int sound = sounds.get(bVoiceActive ? SOUND_VOXON : SOUND_VOXOFF);
         if (sound != 0)
             audioIcons.play(sound, 1.0f, 1.0f, 0, 0, 1.0f);
+    }
+
+    /** Xray: start / stop a screen recording with microphone audio. */
+    private void toggleXrayRecording() {
+        if (XrayRecorderService.isRunning()) {
+            XrayScreenCapture.stop(this);
+            Toast.makeText(this, R.string.xray_record_stop, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            xrayShareMode = false;
+            XrayScreenCapture.request(this);
+        }
+    }
+
+    /** Xray: record the screen with sound, then offer to send it. */
+    private void toggleXrayShare() {
+        if (XrayRecorderService.isRunning()) {
+            XrayScreenCapture.stop(this);
+        }
+        else {
+            xrayShareMode = true;
+            XrayScreenCapture.request(this);
+        }
     }
 }

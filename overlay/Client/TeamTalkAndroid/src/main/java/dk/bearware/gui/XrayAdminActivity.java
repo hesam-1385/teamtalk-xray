@@ -46,6 +46,35 @@ public class XrayAdminActivity extends AppCompatActivity {
                 title.announceForAccessibility(getString(R.string.xray_admin));
             }
         }, 400);
+
+        View rec = findViewById(R.id.btn_xray_record);
+        if (rec != null) {
+            rec.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    if (XrayRecorderService.isRunning()) {
+                        XrayScreenCapture.stop(XrayAdminActivity.this);
+                    }
+                    else {
+                        xrayShare = false;
+                        XrayScreenCapture.request(XrayAdminActivity.this);
+                    }
+                }
+            });
+        }
+        View share = findViewById(R.id.btn_xray_share);
+        if (share != null) {
+            share.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    if (XrayRecorderService.isRunning()) {
+                        XrayScreenCapture.stop(XrayAdminActivity.this);
+                    }
+                    else {
+                        xrayShare = true;
+                        XrayScreenCapture.request(XrayAdminActivity.this);
+                    }
+                }
+            });
+        }
     }
 
     private void bind(int id, final Class<?> cls) {
@@ -60,5 +89,16 @@ public class XrayAdminActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    private boolean xrayShare = false;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
+        if (requestCode == XrayScreenCapture.REQUEST_CODE) {
+            XrayScreenCapture.handleResult(this, resultCode, data, xrayShare);
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

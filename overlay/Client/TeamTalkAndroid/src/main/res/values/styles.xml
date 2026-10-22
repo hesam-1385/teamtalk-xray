@@ -1,14 +1,39 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight" />
+    <!-- Xray: modern, calm dark theme. Deep navy surfaces, teal accent,
+         rounded cards, big touch targets. Stays readable with TalkBack and
+         keeps strong contrast for low vision users. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/xray_surface</item>
+        <item name="colorPrimaryDark">@color/xray_bg</item>
+        <item name="colorAccent">@color/xray_accent</item>
+        <item name="android:windowBackground">@color/xray_bg</item>
+        <item name="android:colorBackground">@color/xray_bg</item>
+        <item name="android:textColorPrimary">@color/xray_text</item>
+        <item name="android:textColorSecondary">@color/xray_text_dim</item>
+        <item name="android:textColorHint">@color/xray_text_dim</item>
+        <item name="android:statusBarColor">@color/xray_bg</item>
+        <item name="android:navigationBarColor">@color/xray_bg</item>
+        <item name="actionBarStyle">@style/XrayActionBar</item>
+        <item name="alertDialogTheme">@style/XrayDialogTheme</item>
+        <item name="buttonStyle">@style/XrayButton</item>
+        <item name="android:listViewStyle">@style/XrayListView</item>
+    </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/xray_surface</item>
+        <item name="colorPrimaryDark">@color/xray_bg</item>
+        <item name="colorAccent">@color/xray_accent</item>
+        <item name="android:windowBackground">@color/xray_bg</item>
+        <item name="android:textColorPrimary">@color/xray_text</item>
+        <item name="android:textColorSecondary">@color/xray_text_dim</item>
     </style>
 
-    <!-- Xray: high contrast theme for blind and low vision users -->
+    <!-- Blind / low vision mode: pure black, huge contrast, yellow accents -->
     <style name="AppTheme.Xray" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/xray_surface</item>
         <item name="android:colorBackground">#FF000000</item>
         <item name="android:windowBackground">#FF000000</item>
         <item name="android:textColorPrimary">#FFFFFFFF</item>
@@ -17,6 +42,65 @@
         <item name="android:textColorHighlight">#FF00E5FF</item>
         <item name="colorAccent">#FF00E5FF</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="XrayActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="background">@color/xray_surface</item>
+        <item name="elevation">6dp</item>
+        <item name="titleTextStyle">@style/XrayActionBarTitle</item>
+    </style>
+
+    <style name="XrayActionBarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/xray_text</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="XrayDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/xray_accent</item>
+        <item name="android:textColorPrimary">@color/xray_text</item>
+        <item name="android:background">@color/xray_surface</item>
+    </style>
+
+    <style name="XrayButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/xray_btn_primary</item>
+        <item name="android:textColor">#FF06222A</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingEnd">18dp</item>
+    </style>
+
+    <style name="XrayListView" parent="Widget.AppCompat.ListView">
+        <item name="android:divider">@color/xray_bg</item>
+        <item name="android:dividerHeight">6dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <!-- Text styles used by the redesigned layouts -->
+    <style name="XrayChatName">
+        <item name="android:textColor">@color/xray_text</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="XrayChatSub">
+        <item name="android:textColor">@color/xray_text_dim</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="XrayStat">
+        <item name="android:textColor">@color/xray_text_dim</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingEnd">8dp</item>
     </style>
 
 </resources>

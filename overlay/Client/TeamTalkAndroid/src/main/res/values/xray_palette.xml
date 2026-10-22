@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="xray_bg">#0B0F14</color>
+    <color name="xray_surface">#141B23</color>
+    <color name="xray_surface2">#1B2530</color>
+    <color name="xray_stroke">#24313D</color>
+    <color name="xray_accent">#00E5FF</color>
+    <color name="xray_accent_dim">#00A6BD</color>
+    <color name="xray_text">#ECEFF1</color>
+    <color name="xray_text_dim">#93A3B1</color>
+    <color name="xray_ok">#2ECC71</color>
+    <color name="xray_warn">#FFC94A</color>
+    <color name="xray_danger">#FF5C6C</color>
+    <color name="xray_tx">#E53935</color>
+    <color name="xray_tx_dim">#B71C1C</color>
+</resources>

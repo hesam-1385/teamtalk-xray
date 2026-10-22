@@ -86,5 +86,24 @@
             android:text="@string/xray_server_bans"
             android:textSize="18sp" />
 
-    </LinearLayout>
+            <Button
+            android:id="@+id/btn_xray_record"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/xray_btn_ghost"
+            android:text="@string/xray_hub_record"
+            android:textColor="@color/xray_accent"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/btn_xray_share"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/xray_btn_ghost"
+            android:text="@string/xray_hub_share"
+            android:textColor="@color/xray_accent"
+            android:textSize="17sp" />
+</LinearLayout>
 </ScrollView>
