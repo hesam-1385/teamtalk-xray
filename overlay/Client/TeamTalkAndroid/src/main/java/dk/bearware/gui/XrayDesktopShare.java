@@ -182,6 +182,12 @@ public class XrayDesktopShare {
             thread = new HandlerThread("xray-desktop");
             thread.start();
             handler = new Handler(thread.getLooper());
+            projection.registerCallback(new MediaProjection.Callback() {
+                @Override
+                public void onStop() {
+                    finish();
+                }
+            }, handler);
             reader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2);
             reader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
                 public void onImageAvailable(ImageReader r) {
