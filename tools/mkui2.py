@@ -983,8 +983,10 @@ public class XrayDesktopShare {
                 f.delete();
             }
             java.io.FileWriter w = new java.io.FileWriter(f, true);
-            w.write(new java.text.SimpleDateFormat("MM-dd HH:mm:ss", java.util.Locale.US)
-                    .format(new java.util.Date()) + "  " + msg + "\n");
+            String line = new java.text.SimpleDateFormat("MM-dd HH:mm:ss", java.util.Locale.US)
+                    .format(new java.util.Date()) + "  " + msg
+                    + System.getProperty("line.separator");
+            w.write(line);
             w.close();
         }
         catch (Exception ignored) {
