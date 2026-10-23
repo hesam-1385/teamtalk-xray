@@ -42,6 +42,7 @@ public class XrayDesktopShare {
 
     private static volatile XrayDesktopShare instance;
     static volatile TeamTalkBase pendingClient;
+    static volatile String lastError = "";
 
     private final TeamTalkBase client;
     private MediaProjection projection;
@@ -100,16 +101,50 @@ public class XrayDesktopShare {
 
     public static boolean start(Context ctx, TeamTalkBase client, int resultCode, Intent data) {
         stop();
-        if (client == null || data == null || resultCode != Activity.RESULT_OK) {
+        if (client == null) {
+            lastError = "client null";
+            return false;
+        }
+        if (data == null) {
+            lastError = "intent null";
+            return false;
+        }
+        if (resultCode != Activity.RESULT_OK) {
+            lastError = "resultCode " + resultCode;
             return false;
         }
         XrayDesktopShare s = new XrayDesktopShare(client);
         boolean ok = s.begin(ctx, resultCode, data);
         if (ok) {
             instance = s;
-            Log.i(TAG, "desktop share started " + s.width + "x" + s.height);
+            logCtx(ctx, "started " + s.width + "x" + s.height);
         }
         return ok;
+    }
+
+    public static String lastError() {
+        return lastError == null ? "" : lastError;
+    }
+
+    static void logCtx(Context ctx, String msg) {
+        Log.i(TAG, msg);
+        try {
+            java.io.File dir = ctx.getExternalFilesDir(null);
+            if (dir == null) {
+                return;
+            }
+            java.io.File f = new java.io.File(dir, "xray_share.log");
+            if (f.length() > 60000) {
+                f.delete();
+            }
+            java.io.FileWriter w = new java.io.FileWriter(f, true);
+            w.write(new java.text.SimpleDateFormat("MM-dd HH:mm:ss", java.util.Locale.US)
+                    .format(new java.util.Date()) + "  " + msg + "
+");
+            w.close();
+        }
+        catch (Exception ignored) {
+        }
     }
 
     public static void stop() {
@@ -126,17 +161,22 @@ public class XrayDesktopShare {
                     ctx.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
             projection = mpm.getMediaProjection(resultCode, data);
             if (projection == null) {
+                lastError = "projection null";
                 return false;
             }
-            DisplayMetrics metrics = new DisplayMetrics();
-            WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
-            if (wm != null) {
-                wm.getDefaultDisplay().getRealMetrics(metrics);
+            DisplayMetrics metrics = ctx.getResources().getDisplayMetrics();
+            int srcW = metrics.widthPixels;
+            int srcH = metrics.heightPixels;
+            int dpi = metrics.densityDpi;
+            if (srcW < 2 || srcH < 2) {
+                srcW = 720;
+                srcH = 1280;
+                dpi = 320;
             }
-            int sw = Math.min(MAX_WIDTH, metrics.widthPixels);
-            int sh = (int) ((long) metrics.heightPixels * sw / Math.max(1, metrics.widthPixels));
-            width = sw & ~1;
-            height = sh & ~1;
+            int sw = Math.min(MAX_WIDTH, srcW);
+            int sh = (int) ((long) srcH * sw / Math.max(1, srcW));
+            width = Math.max(2, sw & ~1);
+            height = Math.max(2, sh & ~1);
             frame = new byte[width * height * 4];
             thread = new HandlerThread("xray-desktop");
             thread.start();
@@ -148,13 +188,15 @@ public class XrayDesktopShare {
                 }
             }, handler);
             display = projection.createVirtualDisplay("xray-desktop", width, height,
-                    metrics.densityDpi,
+                    dpi,
                     DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                     reader.getSurface(), null, handler);
             running = true;
             return true;
         }
-        catch (Exception e) {
+        catch (Throwable e) {
+            lastError = e.getClass().getSimpleName() + ": " + e.getMessage();
+            logCtx(ctx, "begin failed: " + lastError);
             Log.e(TAG, "cannot start", e);
             finish();
             return false;
@@ -346,7 +388,7 @@ public class XrayDesktopShare {
             }
             boolean ok = XrayDesktopShare.start(this, pendingClient, code, data);
             if (!ok) {
-                toast(getString(R.string.xray_share_failed));
+                toast(getString(R.string.xray_share_failed) + " - " + lastError());
                 stopSharing();
             }
             else {
