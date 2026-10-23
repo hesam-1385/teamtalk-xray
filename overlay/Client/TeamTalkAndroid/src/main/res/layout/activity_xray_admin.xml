@@ -49,31 +49,43 @@
         <Button
             android:id="@+id/btn_xray_user_accounts"
             style="@style/XrayTile"
+            android:drawableStart="@drawable/xray_ic_users"
+            android:drawablePadding="14dp"
             android:text="@string/xray_user_accounts" />
 
         <Button
             android:id="@+id/btn_xray_server_props"
             style="@style/XrayTile"
+            android:drawableStart="@drawable/xray_ic_settings"
+            android:drawablePadding="14dp"
             android:text="@string/xray_server_props" />
 
         <Button
             android:id="@+id/btn_xray_server_info"
             style="@style/XrayTile"
+            android:drawableStart="@drawable/xray_ic_info"
+            android:drawablePadding="14dp"
             android:text="@string/xray_server_info" />
 
         <Button
             android:id="@+id/btn_xray_move_users"
             style="@style/XrayTile"
+            android:drawableStart="@drawable/xray_ic_move"
+            android:drawablePadding="14dp"
             android:text="@string/xray_move_users" />
 
         <Button
             android:id="@+id/btn_xray_channel_bans"
             style="@style/XrayTile"
+            android:drawableStart="@drawable/xray_ic_ban"
+            android:drawablePadding="14dp"
             android:text="@string/xray_channel_bans" />
 
         <Button
             android:id="@+id/btn_xray_server_bans"
             style="@style/XrayTile"
+            android:drawableStart="@drawable/xray_ic_bans"
+            android:drawablePadding="14dp"
             android:text="@string/xray_server_bans" />
 
         <Button
